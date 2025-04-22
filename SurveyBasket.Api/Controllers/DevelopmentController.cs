@@ -7,16 +7,27 @@ namespace SurveyBasket.Api.Controllers;
 [ApiController]
 public class DevelopmentController : ControllerBase
 {
-    private readonly IOS _iOS;
+    private readonly IOperationTransient _operationTransient;
+    private readonly IOperationScoped _operationScoped;
+    private readonly IOperationSingleton _operationSingleton;
+    private readonly ILogger _logger;
 
-    public DevelopmentController(IOS ios)
+    public DevelopmentController(IOperationTransient operationTransient, IOperationScoped operationScoped, IOperationSingleton operationSingleton, ILogger<DevelopmentController> logger)
     {
-        _iOS =ios;
+        _operationTransient=operationTransient;
+        _operationScoped=operationScoped;
+        _operationSingleton=operationSingleton;
+        _logger=logger;
     }
+
+
     [HttpGet]
     public IActionResult Run()
     {
-        var message = _iOS.RunApp();
-        return Ok(message);
+        _logger.LogInformation("Transient {0}", _operationTransient.OperationId);
+        _logger.LogWarning("Scoped {0}",_operationScoped.OperationId);
+        _logger.LogError("Singleton {0}", _operationSingleton.OperationId);
+        
+        return Ok();
     }
 }

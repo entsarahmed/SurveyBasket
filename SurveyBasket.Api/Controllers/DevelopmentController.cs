@@ -20,7 +20,7 @@ public class DevelopmentController : ControllerBase
     public IActionResult Run([FromKeyedServices("windows")] IOperationTransient windowsService,
         [FromKeyedServices("macOs")] IOperationTransient macOsService)
     {
-        _logger.LogWarning("windows {0}", windowsService.OperationId);
+       // _logger.LogWarning("windows {0}", windowsService.OperationId);
         _logger.LogError("MacOs {0}", macOsService.OperationId);
         return Ok();
     }

@@ -10,13 +10,8 @@ public class PollService : IPollService
             Description = "My first poll"
         }
        ];
-    public IEnumerable<Poll> GetAll()
-    {
-        return _polls;
-    }
+    public IEnumerable<Poll> GetAll()  => _polls;
 
-    public Poll? Get(int id)
-    {
-        return _polls.SingleOrDefault(x => x.Id == id);
-    }
+    public Poll? Get(int id) => _polls.SingleOrDefault(x => x.Id == id);
+    
 }

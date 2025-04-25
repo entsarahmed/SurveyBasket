@@ -3,13 +3,7 @@
 [ApiController]
 public class PollsController : ControllerBase
 {
-    private readonly List<Poll> _polls = [
-        new Poll{
-            Id = 1,
-            Title = "Poll 1",
-            Description = "My first poll"
-        }
-        ];
+   
 
     
     [HttpGet("")]

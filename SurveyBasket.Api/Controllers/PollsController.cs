@@ -33,4 +33,12 @@ public class PollsController(IPollService pollService) : ControllerBase
             return NotFound();
         return NoContent(); //204
     }
+    [HttpDelete("{id}")]
+    public IActionResult Delete(int id)
+    {
+        var ISDeleted  = _pollService.Delete(id);
+        if (!ISDeleted)
+            return NotFound();
+        return NoContent();
+    }
 }

@@ -20,4 +20,14 @@ public class PollService : IPollService
        _polls.Add(poll);
         return poll;
     }
+
+    public bool Update(int id, Poll poll)
+    {
+        var CurrentPoll = Get(id);
+        if(CurrentPoll is null)
+            return false;
+        CurrentPoll.Title = poll.Title;
+        CurrentPoll.Description = poll.Description;
+        return true;
+    }
 }

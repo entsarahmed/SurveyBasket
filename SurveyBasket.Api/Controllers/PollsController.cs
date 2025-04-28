@@ -10,7 +10,7 @@ public class PollsController(IPollService pollService) : ControllerBase
     {
         return Ok(_pollService.GetAll());
     }
-    [HttpGet("{Id}")]
+    [HttpGet("{Id:int}")]
     public IActionResult Get(int id)
     {
         var poll = _pollService.Get(id);

@@ -7,7 +7,7 @@ public class Poll
     public string Title { get; set; } = string.Empty;
     public string Description { get; set; }= string.Empty;
     
-    public static implicit operator PollResponse(Poll poll)
+    public static explicit operator PollResponse(Poll poll)
     {
         return new()
         {

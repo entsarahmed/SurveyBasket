@@ -12,7 +12,8 @@ public class PollsController(IPollService pollService) : ControllerBase
     public IActionResult GetAll()
     {
         var polls =_pollService.GetAll();
-        return Ok(polls);
+        var response = polls.Adapt<IEnumerable<Poll>>();
+        return Ok(response);
     }
     [HttpGet("{Id}")]
     public IActionResult Get([FromRoute]int id)
@@ -29,18 +30,19 @@ public class PollsController(IPollService pollService) : ControllerBase
     [HttpPost("")]
     public IActionResult Add([FromBody] CreatePollRequest request)
     {
-        //var newPoll = _pollService.Add((Poll)request);
-        //return CreatedAtAction(nameof(Get), new {id = newPoll.Id}, newPoll);
-        return Ok();
+        var newPoll = _pollService.Add(request.Adapt<Poll>());
+        return CreatedAtAction(nameof(Get), new {id = newPoll.Id}, newPoll);
+
 
     }
     [HttpPut("{id}")]
     public IActionResult Update([FromRoute]int id, [FromBody]CreatePollRequest request)
     {
-      //var IsUpdated =  _pollService.Update(id, (Poll)request);
-      //  if (!IsUpdated)
-      //      return NotFound();
-        return NoContent(); //204
+        var IsUpdated = _pollService.Update(id, request.Adapt<Poll>());
+        if (!IsUpdated)
+            return NotFound();
+        return NoContent();
+
     }
     [HttpDelete("{id}")]
     public IActionResult Delete([FromRoute]int id)

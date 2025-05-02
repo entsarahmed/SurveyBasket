@@ -52,5 +52,24 @@ public class PollsController(IPollService pollService) : ControllerBase
             return NotFound();
         return NoContent();
     }
+    [HttpGet("test")]
+    public IActionResult Test()
+    {
+        var student = new Student
+        {
+            Id = 1,
+            FirstName = "Mohamed",
+            MiddleName = "Ali",
+            LastName = "Elmelaty",
+            DateOfBirth = new DateTime(1999, 1, 1),
+            Department = new Department
+            {
+                Id = 1,
+                Name = "Test",
+            }
+        };
+        var response = student.Adapt<StudentResponse>();
+        return Ok(response);
+    }
    
 }

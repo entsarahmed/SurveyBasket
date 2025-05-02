@@ -1,5 +1,6 @@
 using MapsterMapper;
 using Scalar.AspNetCore;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +9,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+//Add Mapster
+var mappingConfig = TypeAdapterConfig.GlobalSettings;
+mappingConfig.Scan(Assembly.GetExecutingAssembly());
+
+
+builder.Services.AddSingleton<IMapper>(new Mapper(mappingConfig));
 builder.Services.AddMapster();
+
 builder.Services.AddScoped<IPollService, PollService>();
 
 var app = builder.Build();

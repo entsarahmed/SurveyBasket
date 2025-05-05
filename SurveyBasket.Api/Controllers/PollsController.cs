@@ -30,10 +30,12 @@ public class PollsController(IPollService pollService) : ControllerBase
     [HttpPost("")]
     public IActionResult Add([FromBody] CreatePollRequest request)
     {
+        //if (!ModelState.IsValid)
+        //{
+        //    return ValidationProblem(ModelState);
+        //}
         var newPoll = _pollService.Add(request.Adapt<Poll>());
-        return CreatedAtAction(nameof(Get), new {id = newPoll.Id}, newPoll);
-
-
+        return CreatedAtAction(nameof(Get), new { id = newPoll.Id }, newPoll);
     }
     [HttpPut("{id}")]
     public IActionResult Update([FromRoute]int id, [FromBody]CreatePollRequest request)
@@ -52,24 +54,10 @@ public class PollsController(IPollService pollService) : ControllerBase
             return NotFound();
         return NoContent();
     }
-    [HttpGet("test")]
-    public IActionResult Test()
+    [HttpPost("test")]
+    public IActionResult Test([FromBody] Student request)
     {
-        var student = new Student
-        {
-            Id = 1,
-            FirstName = "Mohamed",
-            MiddleName = "Ali",
-            LastName = "Elmelaty",
-            DateOfBirth = new DateTime(1999, 1, 1),
-            Department = new Department
-            {
-                Id = 1,
-                Name = "Test",
-            }
-        };
-        var response = student.Adapt<StudentResponse>();
-        return Ok(response);
+        return Ok("Value accepted");  
     }
    
 }

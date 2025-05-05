@@ -11,9 +11,9 @@ public class MappingConfigurations : IRegister
         config.NewConfig<Student, StudentResponse>()
             .Map(dest => dest.FullName, src => $"{src.FirstName} {src.MiddleName} {src.LastName}")
             .Map(dest => dest.Age, src => DateTime.Now.Year - src.DateOfBirth!.Value.Year,
-            srcCond => srcCond.DateOfBirth.HasValue)
+             srcCond => srcCond.DateOfBirth.HasValue);
             //.Ignore(dest => dest.DepartmentName)
-            .Map(dest => dest.DepartmentName, src => src.Department.Name);
+            //.Map(dest => dest.DepartmentName, src => src.Department.Name);
  //       config.NewConfig<Student, StudentResponse>().TwoWays(); //Reverse Mapping
     }
 }

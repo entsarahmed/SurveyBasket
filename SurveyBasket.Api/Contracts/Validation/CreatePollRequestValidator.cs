@@ -4,7 +4,18 @@ public class CreatePollRequestValidator:AbstractValidator<CreatePollRequest>
 {
     public CreatePollRequestValidator()
     {
-        //RuleFor(x => x.Title).NotEmpty();
-
+        RuleFor(x => x.Title)
+            .Length(3, 100)
+            .WithMessage("Title should be at least {MinLength} and maximum {MaxLength}, You entered [{PropertyValue}]")
+            .NotEmpty()
+            //.MinimumLength(3)
+            //.MaximumLength(100);
+            //Add Error Message personal You
+            // .WithMessage("Please Add a Title")
+            //Add Error Message with Placeholder => https://docs.fluentvalidation.net/en/latest/built-in-validators.html#regular-expression-validator
+            .WithMessage("Please add a {PropertyName}");
+        RuleFor(x => x.Description)
+            .NotEmpty()
+            .Length(3, 1000);
     }
 }

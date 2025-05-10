@@ -1,4 +1,5 @@
-﻿using MapsterMapper;
+﻿
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace SurveyBasket.Api.Controllers;
 [Route("api/[controller]")]// /api/polls
@@ -30,10 +31,7 @@ public class PollsController(IPollService pollService) : ControllerBase
     [HttpPost("")]
     public IActionResult Add([FromBody] CreatePollRequest request)
     {
-        //if (!ModelState.IsValid)
-        //{
-        //    return ValidationProblem(ModelState);
-        //}
+      
         var newPoll = _pollService.Add(request.Adapt<Poll>());
         return CreatedAtAction(nameof(Get), new { id = newPoll.Id }, newPoll);
     }
@@ -54,10 +52,6 @@ public class PollsController(IPollService pollService) : ControllerBase
             return NotFound();
         return NoContent();
     }
-    [HttpPost("test")]
-    public IActionResult Test([FromBody] Student request)
-    {
-        return Ok("Value accepted");  
-    }
+    
    
 }

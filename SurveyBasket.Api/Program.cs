@@ -1,5 +1,8 @@
+
 using MapsterMapper;
 using Scalar.AspNetCore;
+using SharpGrip.FluentValidation.AutoValidation.Mvc.Extensions;
+using SurveyBasket.Api.Contracts.Validation;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +22,11 @@ builder.Services.AddMapster();
 
 builder.Services.AddScoped<IPollService, PollService>();
 
+builder.Services.AddScoped<IValidator<CreatePollRequest>, CreatePollRequestValidator>();
+//builder.Services.AddValidatorsFromAssemblyContaining<Program>();
+builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+builder.Services.AddFluentValidationAutoValidation();
+    
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

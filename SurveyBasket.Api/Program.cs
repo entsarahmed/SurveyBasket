@@ -1,32 +1,9 @@
-
-using MapsterMapper;
 using Scalar.AspNetCore;
-using SharpGrip.FluentValidation.AutoValidation.Mvc.Extensions;
-using SurveyBasket.Api.Contracts.Validation;
-using System.Reflection;
+using SurveyBasket.Api;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDependencies();
 
-// Add services to the container.
-
-builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
-//Add Mapster
-var mappingConfig = TypeAdapterConfig.GlobalSettings;
-mappingConfig.Scan(Assembly.GetExecutingAssembly());
-
-
-builder.Services.AddSingleton<IMapper>(new Mapper(mappingConfig));
-builder.Services.AddMapster();
-
-builder.Services.AddScoped<IPollService, PollService>();
-
-builder.Services.AddScoped<IValidator<CreatePollRequest>, CreatePollRequestValidator>();
-//builder.Services.AddValidatorsFromAssemblyContaining<Program>();
-builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-builder.Services.AddFluentValidationAutoValidation();
-    
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

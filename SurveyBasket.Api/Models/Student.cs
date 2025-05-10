@@ -1,5 +1,4 @@
-﻿using SurveyBasket.Api.ValidationAttributes;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace SurveyBasket.Api.Models;
 

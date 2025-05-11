@@ -1,5 +1,4 @@
 ﻿using MapsterMapper;
-using Microsoft.EntityFrameworkCore;
 using SharpGrip.FluentValidation.AutoValidation.Mvc.Extensions;
 using SurveyBasket.Api.Contracts.Validation;
 using SurveyBasket.Api.Persistence;
@@ -40,10 +39,11 @@ public static class DependencyInjection
         #endregion
 
         #region Allow Dependence Injection for  ConnectionString?
-        var connectionString = configuration.GetConnectionString("DefaultConnection") ??
-        throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+        var connectionString = configuration.GetConnectionString("DefaultConnection") 
+       ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
         services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
         #endregion
+        
         return services;
     }
 }

@@ -1,4 +1,6 @@
 ﻿
+using SurveyBasket.Api.Entities;
+
 namespace SurveyBasket.Api.Services;
 
 public class PollService : IPollService
@@ -7,7 +9,7 @@ public class PollService : IPollService
        new Poll{
             Id = 1,
             Title = "Poll 1",
-            Description = "My first poll"
+            Summary = "My first poll"
         }
        ];
     public IEnumerable<Poll> GetAll()  => _polls;
@@ -27,7 +29,7 @@ public class PollService : IPollService
         if(CurrentPoll is null)
             return false;
         CurrentPoll.Title = poll.Title;
-        CurrentPoll.Description = poll.Description;
+        CurrentPoll.Summary = poll.Summary;
         return true;
     }
 
@@ -39,4 +41,5 @@ public class PollService : IPollService
         return true;
 
     }
+
 }

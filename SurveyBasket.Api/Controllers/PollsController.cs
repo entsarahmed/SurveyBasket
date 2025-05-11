@@ -1,5 +1,7 @@
 ﻿
+using Mapster;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using SurveyBasket.Api.Entities;
 
 namespace SurveyBasket.Api.Controllers;
 [Route("api/[controller]")]// /api/polls

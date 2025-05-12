@@ -14,8 +14,8 @@ public class CreatePollRequestValidator:AbstractValidator<CreatePollRequest>
             // .WithMessage("Please Add a Title")
             //Add Error Message with Placeholder => https://docs.fluentvalidation.net/en/latest/built-in-validators.html#regular-expression-validator
             .WithMessage("Please add a {PropertyName}");
-        RuleFor(x => x.Description)
+        RuleFor(x => x.Summary)
             .NotEmpty()
-            .Length(3, 1000);
+            .Length(3, 1500);
     }
 }

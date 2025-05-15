@@ -38,5 +38,14 @@ public class PollService(ApplicationDbContext context) : IPollService
         return true;
 
     }
+    public async Task<bool> TogglePublishStatusAsync(int id, CancellationToken cancellationToken = default)
+    {
+        var poll = await GetAsync(id, cancellationToken);
+        if (poll is null)
+            return false;
+        poll.IsPublished = !poll.IsPublished;
+        await _context.SaveChangesAsync(cancellationToken);
+        return true;
+    }
 
 }

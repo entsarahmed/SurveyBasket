@@ -56,5 +56,13 @@ public class PollsController(IPollService pollService) : ControllerBase
         return NoContent();
     }
 
+    [HttpPut("{id}/togglePublish")]
+    public async Task<IActionResult> TogglePublish([FromRoute] int id, CancellationToken cancellationToken)
+    {
+        var isUpdate = await _pollService.TogglePublishStatusAsync(id, cancellationToken);
+        if (!isUpdate) return NotFound();
+        return NoContent();
+
+    }
 
 }

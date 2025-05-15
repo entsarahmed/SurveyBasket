@@ -1,21 +1,29 @@
 ﻿namespace SurveyBasket.Api.Contracts.Validation;
 
-public class PollRequestValidator:AbstractValidator<CreatePollRequest>
+public class PollRequestValidator:AbstractValidator<PollRequest>
 {
     public PollRequestValidator()
     {
         RuleFor(x => x.Title)
-            .Length(3, 100)
-            .WithMessage("Title should be at least {MinLength} and maximum {MaxLength}, You entered [{PropertyValue}]")
             .NotEmpty()
-            //.MinimumLength(3)
-            //.MaximumLength(100);
-            //Add Error Message personal You
-            // .WithMessage("Please Add a Title")
-            //Add Error Message with Placeholder => https://docs.fluentvalidation.net/en/latest/built-in-validators.html#regular-expression-validator
-            .WithMessage("Please add a {PropertyName}");
+            .Length(3, 100);
         RuleFor(x => x.Summary)
             .NotEmpty()
-            .Length(3, 1500);
+            .Length(3,1500);
+        RuleFor(x => x.StartsAt)
+            .NotEmpty()
+            .GreaterThanOrEqualTo(DateOnly.FromDateTime(DateTime.Today));
+
+        RuleFor(x => x.EndsAt)
+            .NotEmpty();
+
+        RuleFor(x => x)
+            .Must(HasValidDates)
+            .WithName(nameof(PollRequest.EndsAt))
+            .WithMessage("{PropertyName} must be greater than or equals start date");
+    }
+    private bool HasValidDates(PollRequest pollRequest)
+    {
+        return pollRequest.EndsAt >= pollRequest.StartsAt;
     }
 }

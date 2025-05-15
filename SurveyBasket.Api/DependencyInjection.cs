@@ -32,7 +32,7 @@ public static class DependencyInjection
         #endregion
 
         #region Fluent Validation
-        services.AddScoped<IValidator<CreatePollRequest>, PollRequestValidator>();
+        services.AddScoped<IValidator<PollRequest>, PollRequestValidator>();
         //services.AddValidatorsFromAssemblyContaining<Program>();
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
         services.AddFluentValidationAutoValidation();

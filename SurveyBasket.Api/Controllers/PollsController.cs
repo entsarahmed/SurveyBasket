@@ -31,7 +31,7 @@ public class PollsController(IPollService pollService) : ControllerBase
     }
 
     [HttpPost("")]
-    public async Task<IActionResult> Add([FromBody] CreatePollRequest request,
+    public async Task<IActionResult> Add([FromBody] PollRequest request,
         CancellationToken cancellationToken = default)
     {
 
@@ -39,7 +39,7 @@ public class PollsController(IPollService pollService) : ControllerBase
         return CreatedAtAction(nameof(Get), new { id = newPoll.Id }, newPoll);
     }
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateAsync([FromRoute] int id, [FromBody] CreatePollRequest request, CancellationToken cancellationToken)
+    public async Task<IActionResult> UpdateAsync([FromRoute] int id, [FromBody] PollRequest request, CancellationToken cancellationToken)
     {
         var IsUpdated =  await _pollService.UpdateAsync(id, request.Adapt<Poll>(), cancellationToken);
         if (!IsUpdated)

@@ -12,7 +12,7 @@ using SurveyBasket.Api.Persistence;
 namespace SurveyBasket.Api.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250515211443_AddIdentityTables")]
+    [Migration("20250516135714_AddIdentityTables")]
     partial class AddIdentityTables
     {
         /// <inheritdoc />

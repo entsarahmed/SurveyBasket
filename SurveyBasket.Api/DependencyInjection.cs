@@ -1,6 +1,6 @@
 ﻿using MapsterMapper;
 using SharpGrip.FluentValidation.AutoValidation.Mvc.Extensions;
-using SurveyBasket.Api.Contracts.Validation;
+using SurveyBasket.Api.Contracts.Polls;
 using SurveyBasket.Api.Persistence;
 using System.Reflection;
 
@@ -43,7 +43,11 @@ public static class DependencyInjection
        ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
         services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
         #endregion
-        
+
+        #region Authenication
+        services.AddScoped<IAuthService, AuthService>();
+
+        #endregion
         return services;
     }
 }

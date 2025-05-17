@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SurveyBasket.Api.Contracts.Requests;
+namespace SurveyBasket.Api.Contracts.Polls;
 
-public record  PollRequest(
+public record PollRequest(
   string Title,
   string Summary,
   bool IsPublished,

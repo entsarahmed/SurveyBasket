@@ -1,6 +1,7 @@
 ﻿
 using Mapster;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using SurveyBasket.Api.Contracts.Polls;
 using SurveyBasket.Api.Entities;
 
 namespace SurveyBasket.Api.Controllers;

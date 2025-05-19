@@ -27,11 +27,11 @@ public class JwtProvider : IJwtProvider
 
         var token = new JwtSecurityToken(
             issuer: "SurveyBasketApp",
-            audience: "SurveyBasketApp Users",
+            audience: "SurveyBasketApp users",
             claims: claims,
             expires: DateTime.UtcNow.AddMinutes(expiresIn),
             signingCredentials: signingCredentials
             );
-        return (token: new JwtSecurityTokenHandler().WriteToken(token), expiresIn: expiresIn);
+        return (token: new JwtSecurityTokenHandler().WriteToken(token), expiresIn: expiresIn * 60);
     }
 }

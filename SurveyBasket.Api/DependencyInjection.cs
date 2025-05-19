@@ -1,11 +1,13 @@
 ﻿using MapsterMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using SharpGrip.FluentValidation.AutoValidation.Mvc.Extensions;
 using SurveyBasket.Api.Authentication;
 using SurveyBasket.Api.Contracts.Polls;
 using SurveyBasket.Api.Persistence;
 using System.Reflection;
-
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 namespace SurveyBasket.Api;
 
 public static class DependencyInjection
@@ -51,6 +53,25 @@ public static class DependencyInjection
         services.AddIdentity<ApplicationUser, IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>();
         services.AddSingleton<IJwtProvider, JwtProvider>();
+        services.AddAuthentication(options =>
+        {
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+        }).AddJwtBearer( o =>
+        {
+            o.SaveToken=true;
+            o.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                ValidateIssuer =true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("EVM9gSBlHvSH4h5YA2UAjAkTRnNaSwTN")),
+                ValidIssuer ="SurveyBasketApp",
+                ValidAudience ="SurveyBasketApp users"
+            };
+        });
         #endregion
         return services;
     }

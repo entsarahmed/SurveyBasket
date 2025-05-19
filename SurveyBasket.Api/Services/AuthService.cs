@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using SurveyBasket.Api.Authentication;
 
 namespace SurveyBasket.Api.Services;
 
 public class AuthService 
-   (UserManager<ApplicationUser> userManager) : IAuthService
+   (UserManager<ApplicationUser> userManager, IJwtProvider jwtProvider) : IAuthService
 {
     private readonly UserManager<ApplicationUser> _userManager = userManager;
+    private readonly IJwtProvider _jwtProvider = jwtProvider;
 
     public async Task<AuthResponse?> GetTokenAsync(string email, string password, CancellationToken cancellationToken = default)
     {
@@ -17,11 +19,11 @@ public class AuthService
          var isValidPassword =  await _userManager.CheckPasswordAsync(user, password);
          if(!isValidPassword)
             return null;
-            //Generate JWT Token
-
+        //Generate JWT Token
+        var (token, expiresIn) = _jwtProvider.GenerateToken(user);
             //return new AuthResponse()
 
-            return new AuthResponse(user.Id, user.Email, user.FirstName, user.LastName, "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0ODUxNDA5ODQsImlhdCI6MTQ4NTEzNzM4NCwiaXNzIjoiYWNtZS5jb20iLCJzdWIiOiIyOWFjMGMxOC0wYjRhLTQyY2YtODJmYy0wM2Q1NzAzMThhMWQiLCJhcHBsaWNhdGlvbklkIjoiNzkxMDM3MzQtOTdhYi00ZDFhLWFmMzctZTAwNmQwNWQyOTUyIiwicm9sZXMiOltdfQ.Mp0Pcwsz5VECK11Kf2ZZNF_SMKu5CgBeLN9ZOP04kZo", 3600);
+            return new AuthResponse(user.Id, user.Email, user.FirstName, user.LastName,token,expiresIn);
 
 
     }

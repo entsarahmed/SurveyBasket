@@ -1,6 +1,7 @@
 ﻿using MapsterMapper;
 using Microsoft.AspNetCore.Identity;
 using SharpGrip.FluentValidation.AutoValidation.Mvc.Extensions;
+using SurveyBasket.Api.Authentication;
 using SurveyBasket.Api.Contracts.Polls;
 using SurveyBasket.Api.Persistence;
 using System.Reflection;
@@ -49,6 +50,7 @@ public static class DependencyInjection
         services.AddScoped<IAuthService, AuthService>();
         services.AddIdentity<ApplicationUser, IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>();
+        services.AddSingleton<IJwtProvider, JwtProvider>();
         #endregion
         return services;
     }

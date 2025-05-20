@@ -19,7 +19,8 @@ public class AuthController(IAuthService authService, IConfiguration configurati
        // MyKey = _configuration["MyKey"]
         // MyKey = _configuration.GetConnectionString("DefaultConnection")
         MyKey = _configuration["ConnectionStrings:DefaultConnection"],
-        LogLevel = _configuration["Logging:LogLevel:Default"]
+        LogLevel = _configuration["Logging:LogLevel:Default"],
+        Env = _configuration["ASPNETCORE_ENVIRONMENT"]
         };
         return Ok(config);
     }

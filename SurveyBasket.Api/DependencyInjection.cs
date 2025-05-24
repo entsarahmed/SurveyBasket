@@ -50,6 +50,7 @@ public static class DependencyInjection
 
         #region Authenication
         services.AddScoped<IAuthService, AuthService>();
+        services.Configure<JwtOptions>(configuration.GetSection(JwtOptions.SectionName));
         services.AddIdentity<ApplicationUser, IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>();
         services.AddSingleton<IJwtProvider, JwtProvider>();

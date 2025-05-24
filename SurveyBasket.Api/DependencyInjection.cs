@@ -67,11 +67,12 @@ public static class DependencyInjection
                 ValidateIssuer =true,
                 ValidateAudience = true,
                 ValidateLifetime = true,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("EVM9gSBlHvSH4h5YA2UAjAkTRnNaSwTN")),
-                ValidIssuer ="SurveyBasketApp",
-                ValidAudience ="SurveyBasketApp users"
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]!)),
+                ValidIssuer =configuration["Jwt:Issuer"],
+                ValidAudience =configuration["Jwt:Audience"]
             };
         });
+      
         #endregion
 
         return services;

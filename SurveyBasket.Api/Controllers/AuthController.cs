@@ -12,17 +12,6 @@ public class AuthController(IAuthService authService, IConfiguration configurati
         var authRequest = await _authService.GetTokenAsync(request.Email, request.Password, cancellationToken);
         return authRequest is null ? BadRequest("Invalid email/password") : Ok(authRequest);
     }
-    [HttpGet("Test")]
-    public IActionResult Test() {
-        var config = new { 
-        
-       // MyKey = _configuration["MyKey"]
-        // MyKey = _configuration.GetConnectionString("DefaultConnection")
-        MyKey = _configuration["MyKey"],
-        LogLevel = _configuration["Logging:LogLevel:Default"],
-        Env = _configuration["ASPNETCORE_ENVIRONMENT"]
-        };
-        return Ok(config);
-    }
+  
 
 }

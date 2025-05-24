@@ -51,6 +51,7 @@ public static class DependencyInjection
         #region Authenication
         services.AddScoped<IAuthService, AuthService>();
         services.Configure<JwtOptions>(configuration.GetSection(JwtOptions.SectionName));
+       var JwtSettings = configuration.GetSection(JwtOptions.SectionName).Get<JwtOptions>();
         services.AddIdentity<ApplicationUser, IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>();
         services.AddSingleton<IJwtProvider, JwtProvider>();
@@ -68,9 +69,9 @@ public static class DependencyInjection
                 ValidateIssuer =true,
                 ValidateAudience = true,
                 ValidateLifetime = true,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]!)),
-                ValidIssuer =configuration["Jwt:Issuer"],
-                ValidAudience =configuration["Jwt:Audience"]
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtSettings?.Key!)),
+                ValidIssuer = JwtSettings?.Issuer,
+                ValidAudience = JwtSettings?.Audience,
             };
         });
       

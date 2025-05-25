@@ -50,8 +50,12 @@ public static class DependencyInjection
 
         #region Authenication
         services.AddScoped<IAuthService, AuthService>();
-        services.Configure<JwtOptions>(configuration.GetSection(JwtOptions.SectionName));
-       var JwtSettings = configuration.GetSection(JwtOptions.SectionName).Get<JwtOptions>();
+       // services.Configure<JwtOptions>(configuration.GetSection(JwtOptions.SectionName));
+       services.AddOptions<JwtOptions>()
+            .BindConfiguration(JwtOptions.SectionName)
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
+        var JwtSettings = configuration.GetSection(JwtOptions.SectionName).Get<JwtOptions>();
         services.AddIdentity<ApplicationUser, IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>();
         services.AddSingleton<IJwtProvider, JwtProvider>();
@@ -60,7 +64,8 @@ public static class DependencyInjection
             options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
             options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 
-        }).AddJwtBearer( o =>
+        })
+            .AddJwtBearer( o =>
         {
             o.SaveToken=true;
             o.TokenValidationParameters = new TokenValidationParameters

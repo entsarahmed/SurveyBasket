@@ -1,12 +1,11 @@
 ﻿using MapsterMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
 using SharpGrip.FluentValidation.AutoValidation.Mvc.Extensions;
 using SurveyBasket.Api.Authentication;
 using SurveyBasket.Api.Contracts.Polls;
-using SurveyBasket.Api.Persistence;
 using System.Reflection;
-using Microsoft.IdentityModel.Tokens;
 using System.Text;
 namespace SurveyBasket.Api;
 

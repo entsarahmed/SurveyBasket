@@ -61,7 +61,7 @@ public class AuthService
         });
         await _userManager.UpdateAsync(user);
         //return new AuthResponse()
-        return new AuthResponse(user.Id, user.Email, user.FirstName, user.LastName, token, expiresIn, newRefreshToken, refreshTokenExpiration);
+        return new AuthResponse(user.Id, user.Email, user.FirstName, user.LastName, newToken, expiresIn, newRefreshToken, refreshTokenExpiration);
 
     }
     private static string GenerateRefreshToken()

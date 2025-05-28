@@ -21,27 +21,13 @@ public class AuthController(IAuthService authService,
         var authRequest = await _authService.GetTokenAsync(request.Email, request.Password, cancellationToken);
         return authRequest is null ? BadRequest("Invalid email/password") : Ok(authRequest);
     }
-    [HttpGet("Test")]
-
-    public IActionResult Test()
+    [HttpPost("refresh")]
+    public async Task<IActionResult> RefreshAsync(RefreshTokenRequest request, CancellationToken cancellationToken)
     {
-        var values = new {
-            IOptionsValue = _jwtOptions.Value.ExpiryMinutes,
-            IOptionSnapshot = _optionsSnapshot.Value.ExpiryMinutes,
-            IOptionMonitor = _optionsMonitor.CurrentValue.ExpiryMinutes,
-        };
-        Thread.Sleep(5000);
-        var values02 = new
-        {
-            IOptionsValue = _jwtOptions.Value.ExpiryMinutes,
-            IOptionSnapshot = _optionsSnapshot.Value.ExpiryMinutes,
-            IOptionMonitor = _optionsMonitor.CurrentValue.ExpiryMinutes,
-        };
-        return Ok(new
-        {
-            values,
-            values02
-        });
+        var authRequest = await _authService.GetRefreshTokenAsync(request.Token, request.RefreshToken, cancellationToken);
+        return authRequest is null ? BadRequest("Invalid Token") : Ok(authRequest);
+
     }
+ 
 
 }
